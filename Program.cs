@@ -4,57 +4,83 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ResponsiPemrograman4405
+namespace ResponsiPemrog_4405
 {
-    class Program
+    public class Program
     {
+        static List<Mahasiswa> list = new List<Mahasiswa>();
+        static Mahasiswa mhs = new Mahasiswa();
         static void Main(string[] args)
         {
-            // membuat objek Karyawan 1
-            Karyawan karyawan1 = new Karyawan();
+            Console.Title = "Responsi UAS Matakuliah Pemrograman";
 
-            // memberi nilai property
-            karyawan1.NIK = "21114424";
-            karyawan1.NAMA = "Muqsid";
-            karyawan1.Gajiperbulan = 3000000;
-
-            // validasi gaji karyawan1
-            if (karyawan1.Gajiperbulan < 0)
+            while (true)
             {
-                karyawan1.Gajiperbulan = 0;
+                TampilMenu();
+
+                Console.Write("\nNomor Menu [1..3]: ");
+                int nomorMenu = Convert.ToInt32(Console.ReadLine());
+
+                switch (nomorMenu)
+                {
+                    case 1:
+                        TambahMahasiswa();
+                        break;
+
+                    case 2:
+                        TampilMahasiswa(list);
+                        break;
+
+                    case 3:
+                        return;
+
+                    default:
+                        break;
+                }
             }
+        }
+        static void TampilMenu()
+        {
+            Console.Clear();
 
-            // membuat objek Karyawan 2
-            Karyawan karyawan2 = new Karyawan();
+            Console.WriteLine("Pilihan Menu Aplikasi\n");
+            Console.WriteLine("1. Tambah Mahasiswa");
+            Console.WriteLine("2. Tampilkan Mahasiswa");
+            Console.WriteLine("3. Keluar\n");
+        }
 
-            // memberi nilai property 2
-            karyawan2.NIK = "21114405";
-            karyawan2.NAMA = "Sitiqalam";
-            karyawan2.Gajiperbulan = 2000000;
+        static void TambahMahasiswa()
+        {
+            Console.Clear();
+            mhs = new Mahasiswa();
+            Console.WriteLine("Tambah data Mahasiswa\n");
+            Console.Write("NIM   : ");
+            mhs.Nim = Console.ReadLine();
+            Console.Write("Nama   : ");
+            mhs.Nama = Console.ReadLine();
+            Console.Write("Jenis Kelain [L/P]   : ");
+            mhs.Gender = Console.ReadLine() == "L" ? "Laki-laki" : "Perempuan";
+            Console.Write("IPK   : ");
+            mhs.Ipk = (float)Convert.ToDouble(Console.ReadLine());
+            list.Add(mhs);
 
-            // validasi gaji karyawan1
-            if (karyawan2.Gajiperbulan < 0)
+            //Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("\nTekan ENTER untuk kembali ke menu");
+            Console.ReadKey();
+        }
+
+        static void TampilMahasiswa(List<Mahasiswa> list)
+        {
+            Console.Clear();
+            Console.WriteLine("Data Mahasiswa\n");
+            int no = 1;
+            foreach (Mahasiswa mhs in list)
             {
-                karyawan2.Gajiperbulan = 0;
+                Console.WriteLine("{0}.{1},{2},{3},{4}", no, mhs.Nim, mhs.Nama, mhs.Gender, mhs.Ipk);
+                no++;
             }
-
-            // mengambil nilai dengan property
-            Console.WriteLine("No Nik/Nama\t\tGaji Bulanan");
-            Console.WriteLine("---------------------------------------");
-
-            Console.WriteLine("1. {0} {1}\t{2}", karyawan1.NIK, karyawan1.NAMA, karyawan1.Gajiperbulan);
-            Console.WriteLine("2. {0} {1}\t{2}", karyawan2.NIK, karyawan2.NAMA, karyawan2.Gajiperbulan);
-            Console.WriteLine("\n");
-
-            Console.WriteLine("Asyiiiiik kenaikan gaji 10%!! ");
-            Console.WriteLine("\n");
-
-            Console.WriteLine("No Nik/Nama\t\tGaji Bulanan");
-            Console.WriteLine("---------------------------------------");
-
-            Console.WriteLine("1. {0} {1}\t{2}", karyawan1.NIK, karyawan1.NAMA, karyawan1.Gajiperbulan + (karyawan1.Gajiperbulan * 0.1));
-            Console.WriteLine("2. {0} {1}\t{2}", karyawan2.NIK, karyawan2.NAMA, karyawan2.Gajiperbulan + (karyawan2.Gajiperbulan * 0.1));
-
+            Console.WriteLine("\nTekan enter untuk kembali ke menu");
             Console.ReadKey();
         }
     }
